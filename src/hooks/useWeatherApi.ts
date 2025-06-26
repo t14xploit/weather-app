@@ -52,13 +52,13 @@ export const useWeatherApi = () => {
       }
 
       // Calculate actual min/max for each day and create forecast objects
-      for (const [dateKey, dayData] of dailyData) {
+      for (const [, dayData] of dailyData) {
         if (dailyForecasts.length >= 7) break;
 
-        const allTemps = dayData.temps.flatMap(t => [t.temp, t.temp_min, t.temp_max]);
+        const allTemps = dayData.temps.flatMap((t: any) => [t.temp, t.temp_min, t.temp_max]);
         const minTemp = Math.min(...allTemps);
         const maxTemp = Math.max(...allTemps);
-        const avgTemp = allTemps.reduce((sum, temp) => sum + temp, 0) / allTemps.length;
+        const avgTemp = allTemps.reduce((sum: number, temp: number) => sum + temp, 0) / allTemps.length;
 
         dailyForecasts.push({
           dt: dayData.dt,
