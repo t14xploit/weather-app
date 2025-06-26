@@ -5,6 +5,7 @@ export const useWeatherApi = () => {
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [forecastData, setForecastData] = useState<ForecastData | null>(null);
   const [loading, setLoading] = useState(false);
+  const [locationLoading, setLocationLoading] = useState(false);
   const [error, setError] = useState('');
 
   const API_KEY = import.meta.env.VITE_API;
@@ -114,11 +115,83 @@ export const useWeatherApi = () => {
     }
   };
 
+  const fetchWeatherByCoords = async (lat: number, lon: number) => {
+    setLoading(true);
+    setError('');
+
+    try {
+      if (!API_KEY) {
+        throw new Error('API key not found. Please add your OpenWeatherMap API key to .env file');
+      }
+
+      const response = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch weather data for your location');
+      }
+
+      const data = await response.json();
+      setWeatherData(data);
+
+      // Fetch forecast data using city name
+      await fetchForecast(data.name);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch weather data');
+      setWeatherData(null);
+      setForecastData(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchWeatherByLocation = () => {
+    if (!navigator.geolocation) {
+      setError('Geolocation is not supported by this browser');
+      return;
+    }
+
+    setLocationLoading(true);
+    setError('');
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        fetchWeatherByCoords(latitude, longitude);
+        setLocationLoading(false);
+      },
+      (error) => {
+        let errorMessage = 'Failed to get your location';
+        switch (error.code) {
+          case error.PERMISSION_DENIED:
+            errorMessage = 'Location access denied. Please enable location permissions.';
+            break;
+          case error.POSITION_UNAVAILABLE:
+            errorMessage = 'Location information is unavailable.';
+            break;
+          case error.TIMEOUT:
+            errorMessage = 'Location request timed out.';
+            break;
+        }
+        setError(errorMessage);
+        setLocationLoading(false);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 300000 // 5 minutes
+      }
+    );
+  };
+
   return {
     weatherData,
     forecastData,
     loading,
+    locationLoading,
     error,
-    fetchWeather
+    fetchWeather,
+    fetchWeatherByLocation
   };
 };

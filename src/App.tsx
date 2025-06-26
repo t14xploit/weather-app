@@ -10,7 +10,7 @@ function App() {
   const [city, setCity] = useState('');
   const [isCelsius, setIsCelsius] = useState(true);
 
-  const { weatherData, forecastData, loading, error, fetchWeather } = useWeatherApi();
+  const { weatherData, forecastData, loading, locationLoading, error, fetchWeather, fetchWeatherByLocation } = useWeatherApi();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,7 +38,9 @@ function App() {
           city={city}
           setCity={setCity}
           onSearch={handleSearch}
+          onLocationSearch={fetchWeatherByLocation}
           loading={loading}
+          locationLoading={locationLoading}
         />
 
         {error && <div className="error">{error}</div>}
