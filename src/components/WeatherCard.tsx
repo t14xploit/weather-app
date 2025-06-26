@@ -1,5 +1,6 @@
 import React from 'react';
 import type { WeatherData } from '../types/weather';
+import { getWeatherEmoji } from '../utils/weatherUtils';
 
 interface WeatherCardProps {
   weatherData: WeatherData;
@@ -27,6 +28,11 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
       </div>
 
       <div className="weather-main">
+        <div className="weather-icon-main">
+          <span className="main-weather-emoji">
+            {getWeatherEmoji(weatherData.weather[0].main, weatherData.weather[0].description)}
+          </span>
+        </div>
         <div className="temperature">
           {Math.round(convertTemperature(weatherData.main.temp, isCelsius))}°{isCelsius ? 'C' : 'F'}
         </div>
@@ -53,6 +59,22 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
         <div className="detail-item">
           <span>Pressure</span>
           <span>{weatherData.main.pressure} hPa</span>
+        </div>
+        <div className="detail-item">
+          <span>Visibility</span>
+          <span>{weatherData.visibility ? (weatherData.visibility / 1000).toFixed(1) + ' km' : 'N/A'}</span>
+        </div>
+        <div className="detail-item">
+          <span>UV Index</span>
+          <span>{weatherData.uvi || 'N/A'}</span>
+        </div>
+        <div className="detail-item">
+          <span>Cloudiness</span>
+          <span>{weatherData.clouds?.all || 0}%</span>
+        </div>
+        <div className="detail-item">
+          <span>Wind Direction</span>
+          <span>{weatherData.wind.deg ? Math.round(weatherData.wind.deg) + '°' : 'N/A'}</span>
         </div>
       </div>
     </div>

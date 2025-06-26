@@ -25,27 +25,52 @@ export const useWeatherApi = () => {
 
       // Transform 5-day forecast data to match our interface
       const dailyForecasts = [];
-      const processedDates = new Set();
+      const dailyData = new Map();
 
+      // Group forecasts by date and collect all temperatures for each day
       for (const item of data.list) {
         const date = new Date(item.dt * 1000);
         const dateKey = date.toDateString();
 
-        if (!processedDates.has(dateKey) && dailyForecasts.length < 7) {
-          processedDates.add(dateKey);
-          dailyForecasts.push({
+        if (!dailyData.has(dateKey)) {
+          dailyData.set(dateKey, {
             dt: item.dt,
-            temp: {
-              day: item.main.temp,
-              night: item.main.temp,
-              min: item.main.temp_min,
-              max: item.main.temp_max
-            },
+            temps: [],
             weather: item.weather,
             humidity: item.main.humidity,
-            wind_speed: item.wind.speed
+            wind_speed: item.wind.speed,
+            dateKey
           });
         }
+
+        dailyData.get(dateKey).temps.push({
+          temp: item.main.temp,
+          temp_min: item.main.temp_min,
+          temp_max: item.main.temp_max
+        });
+      }
+
+      // Calculate actual min/max for each day and create forecast objects
+      for (const [dateKey, dayData] of dailyData) {
+        if (dailyForecasts.length >= 7) break;
+
+        const allTemps = dayData.temps.flatMap(t => [t.temp, t.temp_min, t.temp_max]);
+        const minTemp = Math.min(...allTemps);
+        const maxTemp = Math.max(...allTemps);
+        const avgTemp = allTemps.reduce((sum, temp) => sum + temp, 0) / allTemps.length;
+
+        dailyForecasts.push({
+          dt: dayData.dt,
+          temp: {
+            day: avgTemp,
+            night: minTemp,
+            min: minTemp,
+            max: maxTemp
+          },
+          weather: dayData.weather,
+          humidity: dayData.humidity,
+          wind_speed: dayData.wind_speed
+        });
       }
 
       setForecastData({ daily: dailyForecasts });

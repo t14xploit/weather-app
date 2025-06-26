@@ -1,5 +1,6 @@
 import React from 'react';
 import type { ForecastData } from '../types/weather';
+import { getWeatherEmoji } from '../utils/weatherUtils';
 
 interface ForecastCardProps {
   forecastData: ForecastData;
@@ -24,11 +25,9 @@ const ForecastCard: React.FC<ForecastCardProps> = ({
             <div key={day.dt} className="forecast-item">
               <div className="forecast-day">{dayName}</div>
               <div className="forecast-icon">
-                <img
-                  src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
-                  alt={day.weather[0].description}
-                  className="weather-icon"
-                />
+                <span className="forecast-emoji">
+                  {getWeatherEmoji(day.weather[0].main, day.weather[0].description)}
+                </span>
               </div>
               <div className="forecast-temps">
                 <span className="temp-high">

@@ -13,6 +13,7 @@ export interface WeatherData {
   }>;
   wind: {
     speed: number;
+    deg?: number;
   };
   sys: {
     country: string;
@@ -20,6 +21,11 @@ export interface WeatherData {
   coord?: {
     lat: number;
     lon: number;
+  };
+  visibility?: number;
+  uvi?: number;
+  clouds?: {
+    all: number;
   };
 }
 
