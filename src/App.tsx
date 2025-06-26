@@ -4,7 +4,7 @@ import SearchForm from './components/SearchForm';
 import WeatherCard from './components/WeatherCard';
 import ForecastCard from './components/ForecastCard';
 import { useWeatherApi } from './hooks/useWeatherApi';
-import { getBackgroundImage, convertTemperature } from './utils/weatherUtils';
+import { getBackgroundImage, convertTemperature, determineTimeOfDay } from './utils/weatherUtils';
 
 function App() {
   const [city, setCity] = useState('');
@@ -23,6 +23,9 @@ function App() {
 
   const backgroundImage = weatherData ? getBackgroundImage(weatherData.weather[0].main, weatherData) : '/sunny.jpg';
 
+  // Determine if it's night for glassmorphism styling
+  const isNight = weatherData ? determineTimeOfDay(weatherData) : false;
+
   return (
     <div
       className="app"
@@ -33,7 +36,7 @@ function App() {
         backgroundRepeat: 'no-repeat'
       }}
     >
-      <div className="container">
+      <div className={`container ${weatherData ? (isNight ? 'night-mode' : 'day-mode') : ''}`}>
         <SearchForm
           city={city}
           setCity={setCity}
@@ -46,7 +49,7 @@ function App() {
         {error && <div className="error">{error}</div>}
 
         {weatherData && (
-          <div className="main-content">
+          <div className={`main-content ${isNight ? 'night-mode' : 'day-mode'}`}>
             <WeatherCard
               weatherData={weatherData}
               isCelsius={isCelsius}

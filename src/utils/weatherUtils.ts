@@ -35,7 +35,7 @@ export const getBackgroundImage = (weatherMain: string, weatherData?: any): stri
   }
 };
 
-const determineTimeOfDay = (weatherData?: any): boolean => {
+export const determineTimeOfDay = (weatherData?: any): boolean => {
   if (!weatherData) {
     // Fallback to local time if no weather data
     const currentHour = new Date().getHours();

@@ -51,32 +51,52 @@ html, body {
   padding: 2vh 3vw;
   border: none;
   border-radius: 30px;
-  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   font-size: clamp(14px, 1.2vw, 20px);
   outline: none;
   transition: all 0.3s ease;
 }
 
-.search-input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+/* Day mode search input */
+.day-mode .search-input {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
 
-.search-input:focus {
+.day-mode .search-input:focus {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: scale(1.02);
+}
+
+/* Night mode search input */
+.night-mode .search-input {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.night-mode .search-input:focus {
   background: rgba(255, 255, 255, 0.3);
   border-color: rgba(255, 255, 255, 0.5);
   transform: scale(1.02);
+}
+
+/* Default search input (when no weather data) */
+.search-input {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.search-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .search-button {
   padding: 2vh 4vw;
   border: none;
   border-radius: 30px;
-  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   font-size: clamp(14px, 1.2vw, 20px);
   cursor: pointer;
@@ -84,10 +104,34 @@ html, body {
   font-weight: 500;
 }
 
-.search-button:hover:not(:disabled) {
+/* Day mode search button */
+.day-mode .search-button {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.day-mode .search-button:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Night mode search button */
+.night-mode .search-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.night-mode .search-button:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Default search button (when no weather data) */
+.search-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .search-button:disabled {
@@ -99,9 +143,7 @@ html, body {
   padding: 2vh;
   border: none;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   font-size: clamp(16px, 1.5vw, 24px);
   cursor: pointer;
@@ -113,10 +155,34 @@ html, body {
   height: 8vh;
 }
 
-.location-button:hover:not(:disabled) {
+/* Day mode location button */
+.day-mode .location-button {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.day-mode .location-button:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Night mode location button */
+.night-mode .location-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.night-mode .location-button:hover:not(:disabled) {
   background: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px) scale(1.05);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Default location button (when no weather data) */
+.location-button {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .location-button:disabled {
@@ -139,13 +205,10 @@ html, body {
 }
 
 .main-content {
-  background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 0;
   padding: 2vh 2vw;
   color: white;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   animation: slideUp 0.5s ease-out;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -154,6 +217,21 @@ html, body {
   height: 70vh;
   margin: 0 auto;
   overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* Day mode - darker glassmorphism for bright backgrounds */
+.main-content.day-mode {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Night mode - lighter glassmorphism for dark backgrounds */
+.main-content.night-mode {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .weather-card {
@@ -260,17 +338,32 @@ html, body {
   justify-content: space-between;
   align-items: center;
   padding: 0.8vh 1vw;
-  background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 0;
   transition: all 0.3s ease;
 }
 
-.detail-item:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-2px);
+/* Day mode detail items */
+.day-mode .detail-item {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
+
+.day-mode .detail-item:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* Night mode detail items */
+.night-mode .detail-item {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.night-mode .detail-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+
 
 .detail-item span:first-child {
   opacity: 0.8;
@@ -301,26 +394,47 @@ html, body {
 .forecast-grid {
   display: flex;
   flex-direction: column;
+  gap: 0.3vh;
   flex: 1;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .forecast-item {
-  margin-top:1.3vh; 
+  margin-top:1.3vh;
   display: grid;
   grid-template-columns: 1fr auto auto 2fr;
   align-items: center;
-  padding: 1vh 1.5vw;
-  background: rgba(255, 255, 255, 0.1);
+  padding: 1.5vh 1.5vw;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 0;
   transition: all 0.3s ease;
   gap: 1.5vw;
-  min-height: 8.5vh;
+  width: 100%;
+  flex: 1;
+  min-height: calc((100% - 6 * 0.8vh - 6 * 1.3vh) / 7);
 }
 
-.forecast-item:hover {
+/* Day mode forecast items */
+.day-mode .forecast-item {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.day-mode .forecast-item:hover {
+  background: rgba(0, 0, 0, 0.4);
+  transform: translateX(5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* Night mode forecast items */
+.night-mode .forecast-item {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.night-mode .forecast-item:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: translateX(5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
