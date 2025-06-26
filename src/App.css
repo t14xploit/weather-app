@@ -271,13 +271,39 @@ html, body {
   padding: 1vh 2vw;
   border: none;
   border-radius: 20px;
-  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: clamp(12px, 1vw, 16px);
+}
+
+/* Day mode unit toggle */
+.day-mode .unit-toggle {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.day-mode .unit-toggle:hover {
+  background: rgba(0, 0, 0, 0.5);
+  transform: scale(1.05);
+}
+
+/* Night mode unit toggle */
+.night-mode .unit-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.night-mode .unit-toggle:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+/* Default unit toggle (when no weather data) */
+.unit-toggle {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .unit-toggle:hover {
