@@ -1,17 +1,68 @@
-export const getBackgroundImage = (weatherMain: string): string => {
-  switch (weatherMain.toLowerCase()) {
-    case 'clear':
-      return '/sunny.jpg';
-    case 'rain':
-    case 'drizzle':
-      return '/rain.jpg';
-    case 'snow':
-      return '/snow.jpg';
-    case 'clouds':
-      return '/cloudy.jpg';
-    default:
-      return '/sunny.jpg';
+export const getBackgroundImage = (weatherMain: string, weatherData?: any): string => {
+  const isNight = determineTimeOfDay(weatherData);
+  const weather = weatherMain.toLowerCase();
+
+  if (isNight) {
+    // Night time backgrounds
+    switch (weather) {
+      case 'clear':
+        return '/clear-sky-night.jpg';
+      case 'rain':
+      case 'drizzle':
+        return '/night-rain.jpg';
+      case 'snow':
+        return '/night-snow.jpg';
+      case 'clouds':
+        return '/cloudy-night.jpg';
+      default:
+        return '/clear-sky-night.jpg';
+    }
+  } else {
+    // Day time backgrounds
+    switch (weather) {
+      case 'clear':
+        return '/sunny.jpg';
+      case 'rain':
+      case 'drizzle':
+        return '/rain.jpg';
+      case 'snow':
+        return '/snow.jpg';
+      case 'clouds':
+        return '/cloudy.jpg';
+      default:
+        return '/sunny.jpg';
+    }
   }
+};
+
+const determineTimeOfDay = (weatherData?: any): boolean => {
+  if (!weatherData) {
+    // Fallback to local time if no weather data
+    const currentHour = new Date().getHours();
+    return currentHour < 6 || currentHour >= 18; // Night between 6 PM and 6 AM
+  }
+
+  // Use sunrise/sunset data from API if available
+  if (weatherData.sys && weatherData.sys.sunrise && weatherData.sys.sunset) {
+    const currentTime = Math.floor(Date.now() / 1000); // Current time in Unix timestamp
+    const sunrise = weatherData.sys.sunrise;
+    const sunset = weatherData.sys.sunset;
+
+    return currentTime < sunrise || currentTime > sunset;
+  }
+
+  // Use timezone offset if available
+  if (weatherData.timezone) {
+    const utcTime = new Date().getTime() + (new Date().getTimezoneOffset() * 60000);
+    const localTime = new Date(utcTime + (weatherData.timezone * 1000));
+    const localHour = localTime.getHours();
+
+    return localHour < 6 || localHour >= 18;
+  }
+
+  // Final fallback to local time
+  const currentHour = new Date().getHours();
+  return currentHour < 6 || currentHour >= 18;
 };
 
 export const getWeatherEmoji = (weatherMain: string, description: string): string => {

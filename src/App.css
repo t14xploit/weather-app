@@ -55,8 +55,7 @@ html, body {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
-  font-size: 1.2vw;
-  min-font-size: 14px;
+  font-size: clamp(14px, 1.2vw, 20px);
   outline: none;
   transition: all 0.3s ease;
 }
@@ -79,8 +78,7 @@ html, body {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
-  font-size: 1.2vw;
-  min-font-size: 14px;
+  font-size: clamp(14px, 1.2vw, 20px);
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 500;
@@ -105,8 +103,7 @@ html, body {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
-  font-size: 1.5vw;
-  min-font-size: 16px;
+  font-size: clamp(16px, 1.5vw, 24px);
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
@@ -138,8 +135,7 @@ html, body {
   width: 80%;
   max-width: 80vw;
   margin: 0 auto;
-  font-size: 1vw;
-  min-font-size: 12px;
+  font-size: clamp(12px, 1vw, 16px);
 }
 
 .main-content {
@@ -189,8 +185,7 @@ html, body {
 }
 
 .weather-header h2 {
-  font-size: 1.5vw;
-  min-font-size: 16px;
+  font-size: clamp(16px, 1.5vw, 24px);
   font-weight: 400;
 }
 
@@ -204,8 +199,7 @@ html, body {
   color: white;
   cursor: pointer;
   transition: all 0.3s ease;
-  font-size: 1vw;
-  min-font-size: 12px;
+  font-size: clamp(12px, 1vw, 16px);
 }
 
 .unit-toggle:hover {
@@ -235,16 +229,14 @@ html, body {
 }
 
 .temperature {
-  font-size: 4vw;
-  min-font-size: 24px;
+  font-size: clamp(24px, 4vw, 48px);
   font-weight: 200;
   margin-bottom: 1vh;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .weather-description {
-  font-size: 1.5vw;
-  min-font-size: 14px;
+  font-size: clamp(14px, 1.5vw, 20px);
   text-transform: capitalize;
   opacity: 0.9;
 }
@@ -282,14 +274,12 @@ html, body {
 
 .detail-item span:first-child {
   opacity: 0.8;
-  font-size: 1vw;
-  min-font-size: 11px;
+  font-size: clamp(11px, 1vw, 14px);
 }
 
 .detail-item span:last-child {
   font-weight: 500;
-  font-size: 1vw;
-  min-font-size: 11px;
+  font-size: clamp(11px, 1vw, 14px);
 }
 
 /* Forecast Styles */
@@ -302,8 +292,7 @@ html, body {
 
 .forecast-title {
   text-align: center;
-  font-size: 1.5vw;
-  min-font-size: 16px;
+  font-size: clamp(16px, 1.5vw, 24px);
   font-weight: 400;
   margin-bottom: 1vh;
   opacity: 0.9;
@@ -338,8 +327,7 @@ html, body {
 }
 
 .forecast-day {
-  font-size: 1.2vw;
-  min-font-size: 12px;
+  font-size: clamp(12px, 1.2vw, 18px);
   font-weight: 500;
   opacity: 0.9;
   min-width: 15%;
@@ -368,19 +356,16 @@ html, body {
 
 .temp-high {
   color: white;
-  font-size: 1.2vw;
-  min-font-size: 12px;
+  font-size: clamp(12px, 1.2vw, 18px);
 }
 
 .temp-low {
   color: rgba(255, 255, 255, 0.7);
-  font-size: 1.2vw;
-  min-font-size: 12px;
+  font-size: clamp(12px, 1.2vw, 18px);
 }
 
 .forecast-desc {
-  font-size: 1vw;
-  min-font-size: 11px;
+  font-size: clamp(11px, 1vw, 14px);
   opacity: 0.8;
   text-transform: capitalize;
   line-height: 1.2;
@@ -416,14 +401,12 @@ html, body {
 
   .search-input {
     padding: 2vh 4vw;
-    font-size: 4vw;
-    min-font-size: 16px;
+    font-size: clamp(16px, 4vw, 24px);
   }
 
   .search-button {
     padding: 2vh 6vw;
-    font-size: 4vw;
-    min-font-size: 16px;
+    font-size: clamp(16px, 4vw, 24px);
   }
 
   .location-button {
@@ -449,13 +432,11 @@ html, body {
   }
 
   .weather-header h2 {
-    font-size: 4vw;
-    min-font-size: 18px;
+    font-size: clamp(18px, 4vw, 28px);
   }
 
   .temperature {
-    font-size: 8vw;
-    min-font-size: 32px;
+    font-size: clamp(32px, 8vw, 64px);
   }
 
   .main-weather-emoji {
@@ -463,8 +444,7 @@ html, body {
   }
 
   .weather-description {
-    font-size: 3vw;
-    min-font-size: 16px;
+    font-size: clamp(16px, 3vw, 24px);
   }
 
   .weather-details {
@@ -474,8 +454,7 @@ html, body {
 
   .detail-item span:first-child,
   .detail-item span:last-child {
-    font-size: 3vw;
-    min-font-size: 14px;
+    font-size: clamp(14px, 3vw, 20px);
   }
 
   .forecast-item {
@@ -489,19 +468,16 @@ html, body {
   }
 
   .forecast-day {
-    font-size: 3vw;
-    min-font-size: 14px;
+    font-size: clamp(14px, 3vw, 20px);
     min-width: 20%;
   }
 
   .temp-high, .temp-low {
-    font-size: 3vw;
-    min-font-size: 14px;
+    font-size: clamp(14px, 3vw, 20px);
   }
 
   .forecast-desc {
-    font-size: 2.5vw;
-    min-font-size: 12px;
+    font-size: clamp(12px, 2.5vw, 18px);
   }
 
   .forecast-temps {
@@ -509,7 +485,6 @@ html, body {
   }
 
   .unit-toggle {
-    font-size: 3vw;
-    min-font-size: 14px;
+    font-size: clamp(14px, 3vw, 20px);
   }
 }

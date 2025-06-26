@@ -21,7 +21,7 @@ function App() {
     setIsCelsius(!isCelsius);
   };
 
-  const backgroundImage = weatherData ? getBackgroundImage(weatherData.weather[0].main) : '/sunny.jpg';
+  const backgroundImage = weatherData ? getBackgroundImage(weatherData.weather[0].main, weatherData) : '/sunny.jpg';
 
   return (
     <div
