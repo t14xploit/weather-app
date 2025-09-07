@@ -16,12 +16,13 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
   convertTemperature 
 }) => {
   return (
-    <div className="weather-card">
+    <div className="weather-card" role="region" aria-label="Current weather information">
       <div className="weather-header">
         <h2>{weatherData.name}, {weatherData.sys.country}</h2>
         <button
           className="unit-toggle"
           onClick={onToggleUnit}
+          aria-label={`Switch temperature unit to ${isCelsius ? 'Fahrenheit' : 'Celsius'}`}
         >
           Switch to {isCelsius ? '°F' : '°C'}
         </button>
@@ -29,11 +30,15 @@ const WeatherCard: React.FC<WeatherCardProps> = ({
 
       <div className="weather-main">
         <div className="weather-icon-main">
-          <span className="main-weather-emoji">
+          <span
+            className="main-weather-emoji"
+            role="img"
+            aria-label={`Weather icon: ${weatherData.weather[0].description}`}
+          >
             {getWeatherEmoji(weatherData.weather[0].main, weatherData.weather[0].description)}
           </span>
         </div>
-        <div className="temperature">
+        <div className="temperature" aria-label={`Current temperature: ${Math.round(convertTemperature(weatherData.main.temp, isCelsius))} degrees ${isCelsius ? 'Celsius' : 'Fahrenheit'}`}>
           {Math.round(convertTemperature(weatherData.main.temp, isCelsius))}°{isCelsius ? 'C' : 'F'}
         </div>
         <div className="weather-description">
